@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amsfonts, amsthm}
+\usepackage{fancyhdr,parskip}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage[margin=.7in]{geometry}
+\usepackage[answerdelayed]{exercise}
+% \pagenumbering{arabic}
+
+%%
+%% Stuff above here is packages that will be used to compile your document.
+%% If you've used unusual LaTeX features, you may have to install extra packages by adding them to this list.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{20pt}
+\pagestyle{fancyplain}
+
+
+%%
+%% Stuff above here is layout and formatting.  If you've never used LaTeX before, you probably don't need to change any of it.
+%% Later, you can learn how it all works and adjust it to your liking, or write your own formatting code.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This section contains some useful macros that will save you time typing.
+%%
+
+% Using \displaystyle (or \ds) in a block of math has a number of effects, but most notably, it makes your fractions come out bigger.
+\newcommand{\ds}{\displaystyle}
+
+% These lines are for displaying integrals; typing \dx will make the dx at the end of the integral look better.
+\newcommand{\is}{\hspace{2pt}}
+\newcommand{\dx}{\is dx}
+
+% These commands produce the fancy Z (for the integers) and other letters conveniently.
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+
+\newcommand{\irr}{\operatorname{irr}}
+
+\newcommand{\frob}{\operatorname{Frob}}
+\newcommand{\aut}{\operatorname{Aut}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This is the header.  It will appear on every page, and it's a good place to put your name, the assignment title, and stuff like that.
+%% I usually leave the center header blank to avoid clutter.
+%%
+
+\fancyhead[L]{EECS3 336 Homework 2}
+\fancyhead[C]{\empty}
+\fancyhead[R]{Katherine Steiner}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+At the beginning of the trip, we know the distance from each gas station to the start of the route and the price of gas at that station (the distances and prices are unique, i.e. there are no ties). There is a gas station at the start point. We assume that the gas consumption of the vehicle is 1 unit of gas per mile. We know how long the route is; at the beginning of the trip, the gas tank is empty, and at the end of the trip, the tank should be empty again.
+
+\begin{enumerate}
+
+\item A greedy algorithm that solves this problem is as follows:
+
+Let \textit{milesTraveled} = 0. Let \textit{bestPriceSoFar} be the price of gas at the station at the start point. Let $D$ be the total distance of the route. Let $\textit{moneySpent} = \$0$. Create a queue $Q$ of ordered pairs $(d, p)$ representing gas stations where $d$ is the distance to that station from the start point and $p$ is the price of gas at that station. Put all gas stations, in increasing order of distance, into the queue, except for the gas station at the start point. 
+
+While $Q$ is not empty, remove the first (i.e. the next closest) station $(d, p)$ from $Q$ for consideration. 
+\begin{itemize}
+\item[\empty] If $p <$ \textit{bestPriceSoFar} then buy $d -\textit{milesTraveled}$ units of gas from the current gas station, each unit of which will cost \textit{bestPriceSoFar}, and increase \textit{moneySpent} appropriately. Now drive $d -\textit{milesTraveled}$ miles until you reach station $(d, p)$. Update variables by letting $\textit{bestPriceSoFar}=p$, $\textit{milesTraveled} = d$. 
+\item[\empty] If $p > \textit{bestPriceSoFar}$ then discard $(d, p)$. 
+\end{itemize}
+When $Q$ is empty, buy $D-\textit{milesTraveled}$ units of gas at the current gas station, each unit of which will cost \textit{bestPriceSoFar}. Drive to the end of the route. 
+
+For example, suppose that the route is $D=100$ miles. The gas station at the start point sells gas for \$4.50. Suppose that the queue is as follows:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+(10, \$3) & (45, \$5)& (60, \$2.50)\\
+\hline
+\end{tabular}
+\end{center}
+Now, \textit{milesTraveled} is 0, \textit{bestPriceSoFar} is \$4.50. We consider the first station in the queue, $(10, \$3)$. Since $p = \$3 < \$4.50$, then we'll buy $d-\textit{milesTraveled} = 10-0 = 10$ units of gas at the current station, where the price is $\textit{bestPriceSoFar} = \$4.50$. We then drive 10 miles to reach gas station $(10, \$3)$, and update variables: now $\textit{milesTraveled}=10$, $\textit{bestPriceSoFar}=\$3$, and $\textit{moneySpent} = \$45$. 
+
+We then consider the next station in the queue, $(45, \$5)$. Since $\$5>\textit{bestPriceSoFar}=\$3$, we discard this station. 
+
+We then consider the last station in the queue, $(60, \$2.50)$. Since $\$2.50 < \textit{bestPriceSoFar}=\$3$, then we'll buy $d-\textit{milesTraveled} = 60 - 10 = 50$ units of gas at the current station where the price is $\textit{bestPriceSoFar} = \$3$. We then drive 50 miles to reach gas station $(60, \$2.50)$, and update variables: now $\textit{milesTraveled}=60$, $\textit{bestPriceSoFar}=\$2.50$, and $\textit{moneySpent} = \$195$. 
+
+Now the queue is empty. We'll therefore buy $D-\textit{milesTraveled} = 100-60=40$ units of gas at the current station where the price is $\textit{bestPriceSoFar}=\$2.50$. Our final $\textit{moneySpent} = \$295$. We then drive 40 miles to reach the end of the route. We note that at the end of the route, our tank is empty, as desired. 
+
+\item Now we want to prove that this algorithm is optimal. 
+\begin{proof}
+We can represent any feasible solution as a list of length $D$ where each element in the list is the price paid for the unit of gas that took us that mile. For the example above, the solution given by the algorithm is
+\[ \{\$4.50_1, \dots, \$4.50_{10}, \$3_{11}, \dots, \$3_{60}, \$2.50_{61}, \dots, \$2.50_{100}\}\]
+
+Let $A = \{a_1, \dots, a_D\}$ be the solution given by the algorithm. Let $O = \{o_1, \dots, o_D\}$ be the optimal solution. Now, we know that we must buy gas at the station at the start of the route, since we originally have no gas. Thus, we must have $a_1 = o_1$. 
+
+Now we know that $a_i = o_i$ for some $i$. Note by the construction of the algorithm, we are always buying just enough gas to get to a station where we can buy even cheaper gas; i.e. every unit of gas is bought at the lowest possible price.
+
+Now suppose that $a_{i+1} \neq o_{i+1}$. By the construction of the algorithm, it is impossible that $a_{i+1} > o_{i+1}$: that would imply that we bought the $o_{i+1}$ unit of gas for a lower price than we bought the $a_{i+1}$ unit of gas, which is impossible because we always buy gas at the lowest possible price. Therefore, if $a_{i+1}\neq o_{i+1}$, then it must be that $a_{i+1} < o_{i+1}$. Then consider the following set $O'$:
+\[ O' = O \backslash \{o_{i+1}\} \cup \{a_{i+1}\}  =  \{o_1, \dots, o_i, a_{i+1}, o_{i+2}, \dots, o_D\}\]
+i.e. we replace $o_{i+1}$ with $a_{i+1}$ in $O$. But since $a_{i+1} < o_{i+1}$, it follows that
+\[\sum_{o_j \in O'}o_j < \sum_{o_j \in O}o_j,\]
+that is, the sum of the prices of units of gas in the $O'$ solution is strictly less than the sum of the prices of units of gas in the $O$ solution. This is a contradiction to the optimality of $O$. Therefore it is not possible that $a_{i+1} \neq o_{i+1}$ for any $i$. By induction, we get that $a_i = o_i$ for all $i$, and thus $A = O$. Our algorithm's solution is equal to the optimal solution; our algorithm is optimal. 
+\end{proof}
+
+\item Finally we analyze the time complexity. First we need to sort the gas stations in order of increasing distance from the start point, which takes $O(n\log n)$. Then we consider each gas station, one at a time, and perform $O(1)$ operations (comparing prices) on each, in total $O(n)$. The total time complexity is $O(n\log n) + O(n) = O(n \log n)$. 
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
