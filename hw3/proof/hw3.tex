@@ -3,7 +3,7 @@
 \usepackage{fancyhdr,parskip}
 \usepackage{fullpage}
 \usepackage{graphicx}
-\usepackage[margin=.7in]{geometry}
+\usepackage[margin=1.2in]{geometry}
 \usepackage[answerdelayed]{exercise}
 % \pagenumbering{arabic}
 
@@ -68,8 +68,49 @@ We are given $n$ ads and a list of $m$ ad slots on a web page. We know the proba
 \[\sum_{i=1}^m a_ib_{f(i)}r_{f(i)}. \]
 \begin{enumerate}
 \item A greedy algorithm for this problem is as follows:
-\item Its running time is
+
+First, create and sort a list $L = \{b_1r_1, \dots, b_nr_n\}$, where each element is the product $b_jr_j$ of an ad, and the elements are sorted in decreasing order. Create and sort a list $S = \{a_1, \dots, a_m\}$, where each element $a_i$ is the probability the user sees an ad slot, sorted in decreasing order. 
+
+While $S$ is not empty, remove the first ad (i.e. the ad with the largest $b_jr_j$) from $L$, and remove the first ad slot (i.e. the slot with the largest $a_i$) from $S$. Assign this ad to this slot. Repeat until all slots have been assigned ads. 
+
+Note that this algorithm displays each ad at most once, as desired. 
+\item Creating and sorting $L$ takes $O(n\log n)$ time. Creating and sorting $S$ takes $O(m\log m)$ time. Assigning ads to slots takes $O(m)$ time. In total the algorithm takes \[O(n\log n) + O(m\log m) + O(m) = O(n\log n + m\log m)\] time. 
 \item Finally we prove that the algorithm is correct.
+\begin{proof}
+Fix an ordering of the $m$ slots by decreasing probability that the user sees that slot. We can represent a solution to the problem as a list of $m$ elements of the form $b_jr_j$, where the index of the element corresponds to the fixed ordering of ad slots. For example, let $A$ be the solution given by the algorithm, then 
+\[ A = \{b_1r_1, \dots, b_mr_m\}.\]
+Now let an optimal solution be $O = \{b'_1r'_1, \dots, b'_mr'_m\}$ where again each element of $O$ represents an ad which is assigned to the corresponding ad slot given by our fixed ordering.
+
+What is the expected ad revenue of each of these solutions? 
+\[ \textrm{revenue}(A) = \sum_{i = 1}^m a_ib_ir_i,\quad \textrm{revenue}(O) = \sum_{i=1}^ma_ib'_ir'_i\]
+%We claim that $\textrm{revenue}(A) = \textrm{revenue}(B)$. 
+
+First, we claim that the $m$ ads in the algorithm solution are the same as the $m$ ads in the optimal solution. Then, we'll show that each of the $m$ ads in the algorithm solution are assigned to the same ad slots as in the optimal solution. Then, we'll be able to conclude that the algorithm and optimal solutions are the same.
+
+First, we know that the $m$ ads in the algorithm solution must be the same as the $m$ ads in the optimal solution. By construction, we know that the ads in the algorithm solution are those with the highest products $b_ir_i$ possible. If some ad was in the algorithm solution but not in the optimal solution, say ad $j \in A$, ad $j \notin O$, but ad $k \in O$, ad $k \notin A$, then it must be that $b_jr_j > b_kr_k$. Then we could replace ad $k$ in the optimal solution with ad $j$, and thus increase $\textrm{revenue}(O)$, a contradiction to the optimality of $O$. Thus, the $m$ ads in $A$ must be the same as the $m$ ads in $O$. 
+
+Now we want to show that the ordering of $A$ and $O$ are the same, i.e. that each ad is assigned to the same slot. %In the case where there's only 1 ad slot, this is trivial. So suppose $m \geq 2$. Consider slot $i$ and $i+1$. Now, $a_i > a_{i+1}$. Suppose we have two possible ads that we want to assign to these slots, $b_x r_x$ and $b_y r_y$, and suppose $b_xr_x > b_yr_y$. Now, we claim that to maximize the revenue from these two slots, we need to assign $b_xr_x$ to $a_i$ and $b_yr_y$ to $a_{i+1}$. Why? Consider the following lemma.
+We claim that the elements of $O$ must be sorted in descending order. Consider the following lemma:
+
+\begin{enumerate}
+\item[] Suppose we have $X = \{x, x+\delta\}$, $Y=\{y, y + \epsilon\}$, for positive $x, y, \delta, \epsilon$, so $x < x+\delta$ and $y < y + \epsilon$. We need to pair elements of $X$ and $Y$ so that the sum of the products of the elements of the pairs is maximized. There are two ways to pair these elements, we can consider the resulting sums:
+
+\[ xy + (x+\delta)(y + \epsilon) = 2xy + \epsilon x + \delta y + \epsilon\delta\]
+\[ x(y+\epsilon) + (x+\delta)y = 2xy + \epsilon x + \delta y\]
+
+seeing that the first sum is greater than the second, we conclude that to maximize the sum of the products of the elements of the pairs, we need the higher element of $X$ to be paired with the higher element of $Y$. 
+\end{enumerate}
+The result of the lemma means that given any two ad slots, we can assign ads to maximize the revenue from those slots: we need to pair ads with higher $b_ir_i$ products to slots with higher $a_i$. Now, given a fixed decreasing ordering for the ad slots, when we assign ads to slots in the optimal solution, we can apply a bubblesort algorithm to swap adjacent ads as necessary, and in the end, we know that our solution has the highest possible revenue. It follows that the optimal solution will have $b'_ir'_i > b'_{i+1}r'_{i+1}$, i.e. that the optimal solution will be sorted in descending order. 
+
+By the construction of the algorithm, the elements of $A$ are also sorted in descending order. Then since $A$ and $O$ contain the same elements in the same order, then the algorithm and optimal solutions are the same. Our algorithm is optimal.
+%Suppose we're given a particular set of $n$ ads and $m$ ad slots. First: Suppose $a>b$ and $c>d$, and $a, b, c, d > 0$. It follows that $ac > bd$. We'll use this fact in our proof.
+%
+%%
+%Let's consider the first element of both $A$ and $O$. By construction, we know that the ad represented by $b_1r_1$ from our algorithm solution must be the ad with the highest such product out of all $n$ ads. We claim that the ad represented by $b'_1r'_1$ must be the same ad. Why? For $O$ to be optimal, $b'_1r'_1$ must be greater than $b'_2r'_2$; if 
+%
+%%We begin by considering the case where $m=1$. 
+%By construction, we know that the ad represented by $b_1r_1$ from our algorithm solution must be the ad with the highest such product out of all $n$ ads. By our fixed ordering, $a_1$ is the greatest of all $a_i$'s. Then, $a_1b_1r_1$ is as large as possible. By the optimality of $O$, we must have that $a_1b_1r_1 = a_1b'_1r'_1$: it cannot be that $a_1b_1r_1 < a_1b'_1r'_1$ since that would imply that $b_1r_1 < b'_1r'_1$ which contradicts our algorithm, and it cannot be that $a_1b_1r_1 > a_1b'_1r'_1$ since 
+\end{proof}
 \end{enumerate}
 
 \end{document}
