@@ -39,7 +39,6 @@ double FindBestAssignment (std::vector<double> a,std::vector<double> b,
     for (int i = 0; i < b.size(); i++) {
       L.push_back(b[i]*r[i]);
     }
-    
     std::sort(L.begin(), L.end());
     std::reverse(L.begin(), L.end());
     std::sort(a.begin(), a.end());
