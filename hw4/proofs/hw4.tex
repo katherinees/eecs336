@@ -1,0 +1,140 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amsfonts, amsthm}
+\usepackage{fancyhdr,parskip}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[answerdelayed]{exercise}
+\usepackage{verbatim}
+% \pagenumbering{arabic}
+
+%%
+%% Stuff above here is packages that will be used to compile your document.
+%% If you've used unusual LaTeX features, you may have to install extra packages by adding them to this list.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{20pt}
+\pagestyle{fancyplain}
+
+
+%%
+%% Stuff above here is layout and formatting.  If you've never used LaTeX before, you probably don't need to change any of it.
+%% Later, you can learn how it all works and adjust it to your liking, or write your own formatting code.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This section contains some useful macros that will save you time typing.
+%%
+
+% Using \displaystyle (or \ds) in a block of math has a number of effects, but most notably, it makes your fractions come out bigger.
+\newcommand{\ds}{\displaystyle}
+
+% These lines are for displaying integrals; typing \dx will make the dx at the end of the integral look better.
+\newcommand{\is}{\hspace{2pt}}
+\newcommand{\dx}{\is dx}
+
+% These commands produce the fancy Z (for the integers) and other letters conveniently.
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+
+\newcommand{\irr}{\operatorname{irr}}
+
+\newcommand{\frob}{\operatorname{Frob}}
+\newcommand{\aut}{\operatorname{Aut}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This is the header.  It will appear on every page, and it's a good place to put your name, the assignment title, and stuff like that.
+%% I usually leave the center header blank to avoid clutter.
+%%
+
+\fancyhead[L]{EECS3 336 Homework 4}
+\fancyhead[C]{\empty}
+\fancyhead[R]{Katherine Steiner}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\textbf{1A}
+
+\begin{enumerate}
+\item Given an array of integers $X = \{x_0, \dots, x_{n-1}\}$, we want to partition the array into $k$ groups $P_1, \dots, P_k$ so that the numbers in every group $P_j$ are distinct, minimizing $k$, and preserving order. 
+
+An algorithm is as follows. Start with array $X$. Create group $P = \{ \}$. Let $k = 0$. 
+
+While $X$ is not empty, remove the first $x$ from $X$. If $x \notin P$, then add $x$ to $P$. If $x$ already in $P$, then let $k = k+1$ and reset $P = \{ \}$. 
+
+The solution to the problem is $k$ when $X$ is empty. (Note that while the partitions $P$ are not unique, $k$ is unique.)
+
+\item Now we prove that the algorithm is correct. 
+\begin{proof}
+Let $k_A$ be the solution given by the algorithm, and let $k_O$ be the optimal solution. We know that $k_A \not< k_O$, since that would contradict the optimality of $k_O$. 
+
+Seeking a contradiction, suppose that $k_O < k_A$, i.e. that there are strictly fewer partitions in the optimal solution than the number in the algorithm solution. This means that all elements in $P_{k_A}$ (i.e. all elements in the last partition of the algorithm solution) belong to some partition $P'_{i}$ in the optimal solution, where $i < k_A$. 
+
+This is a contradiction, because our algorithm only creates a new partition when adding another element to a partition would mean that that partition had duplicate elements. In particular, the first element in $P_{k_A}$ (the first element in the last partition of the algorithm solution), cannot belong to $P_{k_A-1}$, since by the algorithm construction, that element's number is already in $P_{k_A-1}$, and it certainly cannot belong to any other partition, since then the elements would be out of order. 
+
+Thus, it cannot be that $k_O<k_A$, and we also know that $k_A \not < k_O$. We therefore conclude that $k_O = k_A$, i.e. the algorithm solution is optimal and our algorithm is correct.
+\end{proof}
+\item Finally we analyze the running time. At the $i$th step of the algorithm, we need to decide if the $i$th element of $X$ is contained in a partition $P$ which has at most $i-1$ elements. Finding an element in a list of size $n$ can be implemented in $O(\log n)$ time. At each step we also do some $O(1)$ operations. We have a step for each element in $X$, which has length $n$. Thus the total running time of the algorithm is $O(n\log n)$. 
+\end{enumerate}
+
+\textbf{1B}
+\begin{enumerate}
+\item Given an array of integers $X = \{x_0, \dots, x_{n-1}\}$, we want to partition the array into $k$ groups $P_1, \dots, P_k$ so that the numbers in every group $P_j$ are distinct, minimizing $k$, but we \textit{don't} care about preserving order. 
+
+An algorithm is as follows:
+
+Create a map $M$, of elements $(x, c)$ where $x \in X$, and $c$ is the number of times $x$ appears in $X$.  
+
+While $X$ not empty, remove the first element of $X$. If $x$ is not a key in $M$, then add $(x, 1)$ to $M$. If $x$ is a key in $M$, i.e. $(x, c) \in M$ for some $c$, then increment $c$ so that $(x, c+1) \in M$. 
+
+When $X$ is empty, find the highest value $c$ in $M$. This is the minimum number of partitions necessary.
+
+(In other words, find the element with the most number of repetitions in $X$, the number of repetitions is $k$.)
+
+\item Now we prove that the algorithm is correct.
+
+\begin{proof}
+Let $k_A$ be the number of partitions returned by the algorithm, and let $k_O$ be the optimal (minimum) number of partitions. Clearly, $k_A \not<k_O$, since that would contradict the optimality of $k_O$. Seeking a contradiction, suppose $k_O<k_A$, i.e. that there are strictly fewer partitions in the optimal solution than the number in the algorithm solution. However, by the construction of the algorithm, we know that there must be some element $x$ which appears in $X$ $k_A$ times. But $k_O<k_A$, so if $x$ appears $k_A$ times then there most be some partition in the optimal solution which contains a repetition of an element, which is not allowed. Therefore it cannot be that $k_O<k_A$.  Thus if $k_O \not<k_A$ and $k_A \not<k_O$, then we must have $k_A = k_O$. Our algorithm is therefore correct.
+\end{proof}
+
+\item Finally we analyze the running time. We have a step for each element in $X$, which has length $n$. With appropriate implementation, we can find/update a particular element in the map $M$ in $O(\log n)$ time (for \verb|c++|, we can use the \verb|map| object). Finding the element with the highest number of repetitions takes $O(n)$. Together the running time is $n\times O(\log n) + O(n) = O(n\log n)$. 
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
