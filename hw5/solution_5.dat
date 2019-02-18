@@ -5,7 +5,7 @@ problem_set_number: 5
 student_name: "Katherine Steiner"
 problems: 356
 test_problems: 100
-time: 1130
+time: 1120
 test_mistakes: 83
 
 -problem: 1
@@ -39,19 +39,19 @@ test_mistakes: 83
  student_answer: 723
 
 -problem: 11
- student_answer: 894
+ student_answer: 921
 
 -problem: 12
  student_answer: 584
 
 -problem: 13
- student_answer: 807
+ student_answer: 801
 
 -problem: 14
  student_answer: 584
 
 -problem: 15
- student_answer: 785
+ student_answer: 795
 
 -problem: 16
  student_answer: 981
@@ -69,244 +69,244 @@ test_mistakes: 83
  student_answer: 1421
 
 -problem: 21
- student_answer: 142440
+ student_answer: 142422
 
 -problem: 22
- student_answer: 162487
+ student_answer: 164023
 
 -problem: 23
- student_answer: 175397
+ student_answer: 175278
 
 -problem: 24
- student_answer: 199115
+ student_answer: 199646
 
 -problem: 25
- student_answer: 207712
+ student_answer: 207383
 
 -problem: 26
- student_answer: 235040
+ student_answer: 234832
 
 -problem: 27
- student_answer: 235616
+ student_answer: 237429
 
 -problem: 28
- student_answer: 257415
+ student_answer: 259568
 
 -problem: 29
- student_answer: 265818
+ student_answer: 266571
 
 -problem: 30
- student_answer: 290188
+ student_answer: 290291
 
 -problem: 31
- student_answer: 316005
+ student_answer: 316352
 
 -problem: 32
- student_answer: 330603
+ student_answer: 331477
 
 -problem: 33
- student_answer: 350337
+ student_answer: 351782
 
 -problem: 34
- student_answer: 414333
+ student_answer: 417087
 
 -problem: 35
- student_answer: 392467
+ student_answer: 393654
 
 -problem: 36
- student_answer: 437641
+ student_answer: 439195
 
 -problem: 37
- student_answer: 455237
+ student_answer: 457581
 
 -problem: 38
- student_answer: 467408
+ student_answer: 469172
 
 -problem: 39
- student_answer: 482208
+ student_answer: 483431
 
 -problem: 40
- student_answer: 533796
+ student_answer: 533915
 
 -problem: 41
- student_answer: 559697
+ student_answer: 561348
 
 -problem: 42
- student_answer: 567169
+ student_answer: 570178
 
 -problem: 43
- student_answer: 612564
+ student_answer: 613637
 
 -problem: 44
- student_answer: 657322
+ student_answer: 661286
 
 -problem: 45
- student_answer: 685651
+ student_answer: 686698
 
 -problem: 46
- student_answer: 696508
+ student_answer: 696737
 
 -problem: 47
- student_answer: 718307
+ student_answer: 720788
 
 -problem: 48
- student_answer: 747268
+ student_answer: 749459
 
 -problem: 49
- student_answer: 784254
+ student_answer: 785772
 
 -problem: 50
- student_answer: 844524
+ student_answer: 845395
 
 -problem: 51
- student_answer: 830365
+ student_answer: 832865
 
 -problem: 52
- student_answer: 913159
+ student_answer: 918544
 
 -problem: 53
- student_answer: 959675
+ student_answer: 962268
 
 -problem: 54
- student_answer: 1014631
+ student_answer: 1016178
 
 -problem: 55
- student_answer: 1001163
+ student_answer: 1003387
 
 -problem: 56
- student_answer: 1033171
+ student_answer: 1042720
 
 -problem: 57
- student_answer: 1046762
+ student_answer: 1047257
 
 -problem: 58
- student_answer: 1135731
+ student_answer: 1139378
 
 -problem: 59
- student_answer: 1129033
+ student_answer: 1134214
 
 -problem: 60
- student_answer: 1170893
+ student_answer: 1174602
 
 -problem: 61
- student_answer: 1223822
+ student_answer: 1229454
 
 -problem: 62
- student_answer: 1247089
+ student_answer: 1248238
 
 -problem: 63
- student_answer: 1317590
+ student_answer: 1324817
 
 -problem: 64
- student_answer: 1354248
+ student_answer: 1362525
 
 -problem: 65
- student_answer: 1387195
+ student_answer: 1395091
 
 -problem: 66
- student_answer: 1450701
+ student_answer: 1458228
 
 -problem: 67
- student_answer: 1434198
+ student_answer: 1441937
 
 -problem: 68
- student_answer: 1534752
+ student_answer: 1539903
 
 -problem: 69
- student_answer: 1587469
+ student_answer: 1593971
 
 -problem: 70
- student_answer: 1604038
+ student_answer: 1608954
 
 -problem: 71
- student_answer: 1617926
+ student_answer: 1620737
 
 -problem: 72
- student_answer: 1728670
+ student_answer: 1730944
 
 -problem: 73
- student_answer: 1796274
+ student_answer: 1800463
 
 -problem: 74
- student_answer: 1794288
+ student_answer: 1798335
 
 -problem: 75
- student_answer: 1836246
+ student_answer: 1844019
 
 -problem: 76
- student_answer: 1862141
+ student_answer: 1865780
 
 -problem: 77
- student_answer: 1911441
+ student_answer: 1918975
 
 -problem: 78
- student_answer: 1979357
+ student_answer: 1987248
 
 -problem: 79
- student_answer: 2004212
+ student_answer: 2013896
 
 -problem: 80
- student_answer: 2001516
+ student_answer: 2003641
 
 -problem: 81
- student_answer: 2099664
+ student_answer: 2107517
 
 -problem: 82
- student_answer: 2169096
+ student_answer: 2175215
 
 -problem: 83
- student_answer: 2272271
+ student_answer: 2276529
 
 -problem: 84
- student_answer: 2291672
+ student_answer: 2301057
 
 -problem: 85
- student_answer: 2351941
+ student_answer: 2356617
 
 -problem: 86
- student_answer: 2458600
+ student_answer: 2460364
 
 -problem: 87
- student_answer: 2588154
+ student_answer: 2597940
 
 -problem: 88
- student_answer: 2529850
+ student_answer: 2540991
 
 -problem: 89
- student_answer: 2596726
+ student_answer: 2602582
 
 -problem: 90
- student_answer: 2610051
+ student_answer: 2618045
 
 -problem: 91
- student_answer: 2643211
+ student_answer: 2646204
 
 -problem: 92
- student_answer: 2744646
+ student_answer: 2747192
 
 -problem: 93
- student_answer: 2833455
+ student_answer: 2836323
 
 -problem: 94
- student_answer: 2995035
+ student_answer: 3001386
 
 -problem: 95
- student_answer: 2900286
+ student_answer: 2909409
 
 -problem: 96
- student_answer: 3080822
+ student_answer: 3079717
 
 -problem: 97
- student_answer: 3039416
+ student_answer: 3053422
 
 -problem: 98
- student_answer: 3157017
+ student_answer: 3163245
 
 -problem: 99
- student_answer: 3202968
+ student_answer: 3211292
 
 -problem: 100
- student_answer: 3244353
+ student_answer: 3245090
 
 -problem: 101
 
@@ -334,7 +334,7 @@ test_mistakes: 83
  student_answer: 569
 
 -problem: 111
- student_answer: 632
+ student_answer: 581
 
 -problem: 112
 
@@ -343,7 +343,7 @@ test_mistakes: 83
 -problem: 114
 
 -problem: 115
- student_answer: 590
+ student_answer: 592
 
 -problem: 116
  student_answer: 460
@@ -373,7 +373,7 @@ test_mistakes: 83
 -problem: 127
 
 -problem: 128
- student_answer: 481
+ student_answer: 482
 
 -problem: 129
  student_answer: 646
@@ -420,7 +420,7 @@ test_mistakes: 83
  student_answer: 662
 
 -problem: 147
- student_answer: 466
+ student_answer: 411
 
 -problem: 148
 
@@ -559,7 +559,7 @@ test_mistakes: 83
 -problem: 206
 
 -problem: 207
- student_answer: 570
+ student_answer: 556
 
 -problem: 208
 
@@ -567,10 +567,10 @@ test_mistakes: 83
  student_answer: 427
 
 -problem: 210
- student_answer: 588
+ student_answer: 712
 
 -problem: 211
- student_answer: 403
+ student_answer: 385
 
 -problem: 212
 
@@ -616,7 +616,7 @@ test_mistakes: 83
 -problem: 229
 
 -problem: 230
- student_answer: 561
+ student_answer: 540
 
 -problem: 231
  student_answer: 389
@@ -624,12 +624,12 @@ test_mistakes: 83
 -problem: 232
 
 -problem: 233
- student_answer: 480
+ student_answer: 526
 
 -problem: 234
 
 -problem: 235
- student_answer: 656
+ student_answer: 719
 
 -problem: 236
 
@@ -749,7 +749,7 @@ test_mistakes: 83
 -problem: 285
 
 -problem: 286
- student_answer: 728
+ student_answer: 706
 
 -problem: 287
  student_answer: 697
@@ -769,7 +769,7 @@ test_mistakes: 83
 -problem: 294
 
 -problem: 295
- student_answer: 328225
+ student_answer: 131245
 
 -problem: 296
 
@@ -804,18 +804,18 @@ test_mistakes: 83
 -problem: 309
 
 -problem: 310
- student_answer: 612
+ student_answer: 723
 
 -problem: 311
 
 -problem: 312
- student_answer: 632
+ student_answer: 629
 
 -problem: 313
  student_answer: 526
 
 -problem: 314
- student_answer: 740
+ student_answer: 750
 
 -problem: 315
 
@@ -823,7 +823,7 @@ test_mistakes: 83
  student_answer: 577
 
 -problem: 317
- student_answer: 565
+ student_answer: 574
 
 -problem: 318
 
@@ -832,7 +832,7 @@ test_mistakes: 83
 -problem: 320
 
 -problem: 321
- student_answer: 406
+ student_answer: 394
 
 -problem: 322
 
@@ -849,7 +849,7 @@ test_mistakes: 83
  student_answer: 556
 
 -problem: 328
- student_answer: 356
+ student_answer: 279
 
 -problem: 329
  student_answer: 574
@@ -857,7 +857,7 @@ test_mistakes: 83
 -problem: 330
 
 -problem: 331
- student_answer: 662
+ student_answer: 515
 
 -problem: 332
 
@@ -888,7 +888,7 @@ test_mistakes: 83
 -problem: 343
 
 -problem: 344
- student_answer: 532
+ student_answer: 337
 
 -problem: 345
 
@@ -916,6 +916,6 @@ test_mistakes: 83
 -problem: 354
 
 -problem: 355
- student_answer: 655
+ student_answer: 607
 
 -problem: 356

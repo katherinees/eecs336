@@ -35,32 +35,40 @@ void GetStudentName(std::string& your_name)
 
 int FindMaxProfit (const std::vector<int>& north, const std::vector<int>& west)
 {
+  std::vector<int> n;
+  for (int k = 0; k < north.size(); k++) {
+    n.push_back(north[k]);
+  }
+  std::vector<int> w;
+  for (int i = 0; i < west.size(); i++) {
+    w.push_back(west[i]);
+  }
   std::vector<int> subs;
   std::vector<int> last;
-  if (north[0] > west[0]) {
-    subs.push_back(north[0]);
+  if (n[0] > w[0]) {
+    subs.push_back(n[0]);
     last.push_back(0);
   } else {
-    subs.push_back(west[0]);
+    subs.push_back(w[0]);
     last.push_back(1);
   }
-  if (north.size() == 1) {
+  if (n.size() == 1) {
     return subs.back();
   }
-  if (north[0]+north[1] > west[0]+west[1]) {
-    subs.push_back(north[0]+north[1]);
+  if (n[0]+n[1] > w[0]+w[1]) {
+    subs.push_back(n[0]+n[1]);
     last.push_back(0);
   } else {
-    subs.push_back(west[0]+west[1]);
+    subs.push_back(w[0]+w[1]);
     last.push_back(1);
   }
-  if (north.size() == 2) {
+  if (n.size() == 2) {
     return subs.back();
   }
-  int alln = north[0]+north[1]+north[2];
-  int allw = west[0]+west[1]+west[2];
-  int nw = north[0]+west[2];
-  int wn = west[0]+north[2];
+  int alln = n[0]+n[1]+n[2];
+  int allw = w[0]+w[1]+w[2];
+  int nw = n[0]+w[2];
+  int wn = w[0]+n[2];
   if (alln > allw and alln > nw and alln > wn) {
     subs.push_back(alln);
     last.push_back(0);
@@ -77,53 +85,60 @@ int FindMaxProfit (const std::vector<int>& north, const std::vector<int>& west)
     subs.push_back(wn);
     last.push_back(0);
   }
-  if (north.size() == 3) {
+  if (n.size() == 3) {
     return subs.back();
   }
-  // int b3 = std::max(north[0]+north[1]+north[2], west[0]+west[1]+west[2]);
-  // b3 = std::max(b3, north[0]+west[2]);
-  // b3 = std::max(b3, west[0]+north[2]);
-  // if (north.size() == 3) {
-  //   return b3;
-  // }
-  // subs.push_back(b3);
-  for (int i = 3; i < north.size(); i++) {
+  n.push_back(0);
+  w.push_back(0);
+  for (int i = 3; i < n.size()-1; i++) {
     int swap;
     int swapPrep = last[i-2];
     if (swapPrep == 0) {
-      swap = subs[i-2]+west[i];
+      swap = subs[i-2]+w[i]+w[i+1];
       swapPrep = 1;
     } else {
-      swap = subs[i-2]+north[i];
+      swap = subs[i-2]+n[i]+n[i+1];
       swapPrep = 0;
     }
     int keep;
     int keepPrep = last[i-1];
     if (keepPrep == 0) {
-      keep = subs[i-1]+north[i];
+      keep = subs[i-1]+n[i]+n[i+1];
       keepPrep = 0;
     } else {
-      keep = subs[i-1]+west[i];
+      keep = subs[i-1]+w[i]+w[i+1];
       keepPrep = 1;
     }
     int undo;
     int undoPrep = last[i-3];
     if (undoPrep == 0) {
-      undo = subs[i-3]+north[i-2]+north[i-1]+north[i];
+      undo = subs[i-3]+n[i-2]+n[i-1]+n[i]+n[i+1];
       undoPrep = 0;
     } else {
-      undo = subs[i-3]+west[i-2]+west[i-1]+west[i];
+      undo = subs[i-3]+w[i-2]+w[i-1]+w[i]+w[i+1];
       undoPrep = 1;
     }
     std::cout << "i = " << i << "\nswap = " << swap << "\nkeep = " << keep << "\nundo = " << undo << "\n";
     if (swap > keep and swap > undo) {
-      subs.push_back(swap);
+      if (swapPrep == 0) {
+        subs.push_back(swap - n[i+1]);
+      } else {
+        subs.push_back(swap - w[i+1]);
+      }
       last.push_back(swapPrep);
     } else if (keep > swap and keep > undo) {
-      subs.push_back(keep);
+      if (keepPrep == 0) {
+        subs.push_back(keep - n[i+1]);
+      } else {
+        subs.push_back(keep - w[i+1]);
+      }
       last.push_back(keepPrep);
     } else {
-      subs.push_back(undo);
+      if (undoPrep == 0) {
+        subs.push_back(undo - n[i+1]);
+      } else {
+        subs.push_back(undo - w[i+1]);
+      }
       last.push_back(undoPrep);
     }
   }
@@ -139,4 +154,4 @@ int FindMaxProfit (const std::vector<int>& north, const std::vector<int>& west)
    //your code
 
    return subs.back();
-}
+ }
