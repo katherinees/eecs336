@@ -47,6 +47,7 @@
 
 \newcommand{\frob}{\operatorname{Frob}}
 \newcommand{\aut}{\operatorname{Aut}}
+\newcommand{\maxp}{\textrm{MaxProfit}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -64,7 +65,21 @@
 
 
 \begin{document}
-We want to design an algorithm for a cryptocurrency startup. 
+We want to design an algorithm for a cryptocurrency startup. We're given two arrays of positive number $N=\{N_1, \dots, N_T\}$ and $W=\{W_1, \dots, W_T\}$ which represent the profits from NorthCoins and WestCoins respectively. Each type of coins requires its own software which takes 1 unit of time to load. 
+\begin{enumerate}
+\item First we define several subproblems. Let $\textrm{ProfitN}(t)$ be the subproblem where the supercomputer mines optimally for time intervals 1 to $t-1$, and mines NorthCoins at time $t$. Likewise define $\textrm{ProfitW}(t)$ and $\textrm{ProfitLoad}(t)$ so that the computer mines WestCoins or loads software at time $t$, respectively. We order subproblems by increasing $t$. Let $\textrm{MaxProfit}(t)$ be the profit if the computer mines optimally for time intervals $1$ to $t-1$. 
+\item For $t=1$, then $\textrm{MaxProfit}(1) = \max(N_1, W_1)$. 
+
+For $t=2$, $\textrm{MaxProfit}(2) = \max(N_1+N_2, W_1+W_2)$. 
+\item The recurrence relation
+
+Let $\textrm{ProfitSwitch}(t)$ be a subproblem where the computer is mining either 
+\[ \textrm{MaxProfit}(t) = \max(\textrm{MaxProfit}(t-2)+N_t, \maxp(t-2)+W_t, \maxp(t-1)\]
+\item We prove that the recurrence relation is correct
+\item An algorithm for finding a solution to the subproblem
+\item An algorithm for finding the optimal solution to the original problem
+\item The running time. 
+\end{enumerate}
 \end{document}
 
 
