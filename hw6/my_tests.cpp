@@ -1,31 +1,7 @@
-///////////////////////////////////////////////////////////////////////////////
-// You need to
-//    1. Read Problem 2 in homework assignment #6.
-//    2. Implement function GetStudentName.
-//    3. Implement function FindMonotonePrediction.
-//    4. Compile your code as explained in the PDF file.
-//    5. Run the executable.
-//    6. Test and debug your code.
-//    7. Submit your code ("student_code_5.h") and results ("solution_5.dat")
-//       via Canvas.
-///////////////////////////////////////////////////////////////////////////////
-
-//required libraries
 #include <string>
 #include <vector>
-
 //you can include standard C++ libraries here
 #include <queue>
-
-// This function should return your name.
-// The name should match your name in Canvas
-
-void GetStudentName(std::string& your_name)
-{
-   //replace the placeholders "Firstname" and "Lastname"
-   //with you first name and last name
-   your_name.assign("Katherine Steiner");
-}
 
 int ComputeCost (std::vector<int> y, int x[]) {
   int cost = 0;
@@ -69,4 +45,25 @@ int FindMonotonePrediction (const std::vector<int>& y, int M)
   //   std::cout << x[j] << ' ';
   // }
   return best;
+}
+
+int main() {
+  std::vector<int> y;
+  y.push_back(0);
+  y.push_back(0);
+  y.push_back(4);
+  y.push_back(0);
+  y.push_back(0);
+  y.push_back(2);
+  y.push_back(2);
+  y.push_back(7);
+  y.push_back(6);
+  y.push_back(0);
+
+  //
+  // int test [5] = {0};
+  // for (int k = 0; k < 5; k++) {
+  //   std::cout << test[k] << " ";
+  // }
+  std::cout << FindMonotonePrediction(y, 10);
 }
