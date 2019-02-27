@@ -52,7 +52,7 @@ int FindMonotonePrediction (const std::vector<int>& y, int M)
       keep[k] = x[k];
     }
     int so_far = M*M*y.size();
-    int save = 0;
+    int save = y.size();
     for (int i = y.size(); i >= 0; i--) {
       x[i] = m;
       int maybe = ComputeCost(y, x);

@@ -67,6 +67,56 @@
 \begin{document}
 Given $\{Y_1, \dots, Y_n\}$ and $M$, design an algorithm to construct a non-decreasing set $\{X_1, \dots, X_n\}$ to minimize 
 \[\cost(X) = \sum_{i=1}^n |X_i-Y_i|^2.\]
+\begin{enumerate}
+\item A subproblem is finding a non-decreasing sequence $\{X_1, \dots, X_n\}$ such that \[0\leq X_1 \leq \dots\leq X_n \leq m,\] where $0 \leq m \leq M$, and $M$ is the original problem parameter. Problems are ordered by increasing $m$. Denote the solution sequence corresponding to $m$ by $X^{(m)}$.
+\item The base case is where $m=0$. Then the sequence $X^{(0)}$ is $\{ 0, \dots, 0\}$ (i.e. all 0's), and the cost of the base case is $\cost(X^{(0)}) = \sum_{i=1}^n Y_i^2$. 
+\item First we'll consider what the sequence \textit{is}, before considering the cost of the squence. Symbolically, 
+\[ X^{(j)} = \{ X_1^{(j-1)}, \dots, X_k^{(j-1)}, \underbrace{j, \dots, j}_{n-k}\}. \]
+So the non-decreasing sequence minimizing cost with upper limit $j$ is equal to the first $k$ terms of the sequence with upper limit $j-1$, followed by $n-k$ elements of value $j$, where $k$ is chosen by inspection to minimize the cost of $X^{(j)}$. Note that $k$ may be $n$, so it is possible that $X^{(j)}$ does not contain a term with value $j$, and $k$ may be $0$, so that $X^{(j)}$ does not contain any of the elements from $X^{(j-1)}$. 
+
+Thus the recurrence relation for the cost of the sequence is:
+\[ \cost(X^{(j)}) = \min(\cost(\{ X_1^{(j-1)}, \dots, X_k^{(j-1)}, \underbrace{j, \dots, j}_{n-k}\}) | k \in \{0, \dots, n\})).\]
+
+\item Now we prove that the recurrence relation is correct. 
+\begin{proof}
+Note that when $m = 0$, there is only one feasible sequence of elements, that with all 0's. The cost of this sequence is therefore the solution to the subproblem for $m=0$.
+
+So we know that for some $i$, we can correctly solve the subproblem for $m = i$, so we know the sequence $X^{(i)}$. We claim that we can therefore solve the subproblem for $m= i+1$. Since we know the sequence $X^{(i)}$, we can construct feasible solutions to the subproblem for $m = i+1$ by constructing each of the sequences 
+\[ \{ X_1^{(i)}, \dots, X_k^{(i)}, \underbrace{i+1, \dots, i+1}_{n-k}\}) \textrm{ for } k \in \{0, \dots, n\} .\]
+We know that the optimal sequence for $m = i+1$ must be one of these, since the only way we could possibly improve the sequence from the solution for $m=i$ is to increase the value of some of the elements in the sequence. Then we simply set $X^{(i+1)}$ to the sequence with minimum cost. It follows that 
+\[ \cost(X^{(i+1)}) = \min(\cost(\{ X_1^{(i)}, \dots, X_k^{(i)}, \underbrace{i+1, \dots, i+1}_{n-k}\}) | k \in \{0, \dots, n\})).\]
+Noting that this is the same relationship as our recurrence relation, we conclude that our recurrence relation is correct. 
+\end{proof}
+\item Now we give an algorithm for finding a solution to the subproblem. 
+
+Suppose we have correctly constructed $X^{(i-1)}$, let this be denoted by an array \verb|x| of length $n$, and let \verb|best| be positive infinity. We're trying to construct $X^{(i)}$. Let \verb|k| be $n$, let \verb|min_index| be $n$. Save \verb|x| in an array \verb|keep|, so we remember the correct solution for $m=i-1$. 
+
+Change the \verb|k|th element of \verb|x| to i, and compute the cost of the new \verb|x|. If this cost is less than \verb|best|, then let \verb|best| be this cost, and let \verb|min_index| be \verb|k|. Decrement \verb|k|, and repeat until \verb|k| is 0. 
+
+Finally reset \verb|x| so that it is the first \verb|min_index| elements of \verb|keep|, followed by $n-\verb|min_index|$ elements of value $i$. 
+
+\item Finally we give an algorithm for the original problem.
+
+Given sequence \verb|y| of length \verb|n| and \verb|M|, first let \verb|x| be an array of zeroes of length \verb|n|. Let \verb|best| be positive infinity. 
+
+\verb|for (m=0; m <= M; m++) {|
+
+\quad Copy \verb|x| into \verb|keep|. Let \verb|i| be \verb|n|, let \verb|m_best| be positive infinity, let \verb|min_index| be \verb|n|. 
+
+\quad Change the \verb|i|th element of \verb|x| to \verb|m|. Compute the cost of the new \verb|x|. If this cost is less that \verb|m_best|, then let \verb|m_best| be the cost and let \verb|min_index| be \verb|i|. Decrement \verb|i| and repeat until \verb|i| is 0. 
+
+\quad Reset \verb|x| so that it is the first \verb|min_index| elements of \verb|keep|, followed by $n-\verb|min_index|$ elements of value \verb|m|. 
+
+\quad Compute the cost of \verb|x| again, and if it's less than \verb|best|, then set \verb|best| equal to the cost. 
+
+\verb|}|
+
+Return \verb|best|.
+
+Thus the solution to the original problem is the cost of $X^{(M)}$, i.e. the cost of the solution sequence to the subproblem corresponding to $M$. 
+
+\item The running time of the algorithm is $O(nM)$. Essentially, we're solving $M$ subproblems that correspond to constructing sequences with upper limit equal to each non-negative integer less than or equal to $M$; thus the outer loop in our algorithm runs $M$ times. At each step in the loop, we search for the \verb|min_index|, which takes $O(n)$ operations, since we have to go through the entire \verb|x| array of length $n$. 
+\end{enumerate}
 \end{document}
 
 
